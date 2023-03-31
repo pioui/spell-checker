@@ -10,7 +10,16 @@ import sys
 
 from util import EPS, format_arc
 
+def write_char_symbols():
+    with open("vocab/chars.syms", "w") as f:
+        # Write the epsilon symbol
+        f.write("0\t<eps>\n")
+        # Write the lowercase letters
+        for i in range(26):
+            c = chr(ord('a') + i)
+            f.write(f"{i+1}\t{c}\n")
 
+            
 def make_input_fst(word):
     """Create an fst that accepts a word letter by letter
     This can be composed with other FSTs, e.g. the spell
