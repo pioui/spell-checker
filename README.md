@@ -1,4 +1,4 @@
-# LAB 1: OpenFST Spell checker and familiarization with Word2vec
+# OpenFST Spell checker 
 
 ## Examples
 The examples folder contains the pre-lab examples we demonstrated in class.
