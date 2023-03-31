@@ -56,7 +56,7 @@ This will give you some basic understanding about how to script for OpenFST.
 Also, you will probably avoid reimplementing existing functionality
 
 
-## Part 1: Spell checker using Finite state transducers
+## Spell checker using Finite state transducers
 
 In this part you are going to implement a spell checker using Finite state transducers and the
 OpenFST library. The spell checker consists of two parts: a Levenshtein transducer and a word
