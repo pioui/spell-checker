@@ -78,12 +78,3 @@ python scripts/run_evaluation.py fsts/MY_SPELL_CHECKER.binfst
 The script will run the spell checker on the test set and print the model accuracy (percentage
 of misspelled words that are corrected appropriately).
 
-
-## Part 2: Familiarization with word2vec and sentiment analysis
-
-In this part you will use the gutenberg corpus to train a word2vec model. You will find most
-similar words, perform word analogies and visualize the embeddings using
-[https://projector.tensorflow.org/](https://projector.tensorflow.org/). Finally you will use the
-embeddings you created to perform sentiment analysis on the IMDB movie reviews dataset.
-
-Follow the instructions in the lab handouts (available through mycourses) to complete this part.
