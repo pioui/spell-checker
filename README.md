@@ -5,6 +5,14 @@ The examples folder contains the pre-lab examples we demonstrated in class.
 
 ## Setup
 
+
+Create conda envirioment
+
+```bash
+conda create --name spell-checker python=3.6
+conda activate spell-checker
+```
+
 To setup openfst in your machine run.
 
 ```bash
