@@ -31,6 +31,11 @@ def download_corpus(corpus="gutenberg"):
     nltk.download(corpus)
     raw = nltk.corpus.__getattr__(corpus).raw()
 
+    # Extend the corpus with brown corpus
+    # TODO: Try it in the end
+    # nltk.download("brown")
+    # raw = raw+nltk.corpus.__getattr__("brown").raw()
+
     return raw
 
 
@@ -44,7 +49,6 @@ def clean_text(s):
     s = contractions.fix(s)  # e.g. don't -> do not, you're -> you are
     s = re.sub("\s+", " ", s)  # strip multiple whitespace
     s = re.sub(r"[^a-z\s]", " ", s)  # keep only lowercase letters and spaces
-
     return s
 
 
