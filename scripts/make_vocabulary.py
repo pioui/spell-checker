@@ -1,4 +1,5 @@
 from collections import defaultdict
+import matplotlib.pyplot as plt
 
 # Open the corpus file and read its contents
 with open('./data/gutenberg.txt', 'r') as corpus_file:
@@ -26,3 +27,17 @@ for token in exclude_list:
 with open('vocab/words.vocab.txt', 'w') as output_file:
     for token, freq in freq_dict.items():
         output_file.write(f'{token}\t\t{freq}\n')
+
+
+sorted_freq = sorted(freq_dict.items(), key=lambda x: x[1], reverse=True)
+
+# create a list of word frequencies and labels for plotting
+labels = [pair[0] for pair in sorted_freq]
+freqs = [pair[1] for pair in sorted_freq]
+
+# plot the histogram
+plt.bar(labels[:100], freqs[:100])
+plt.xticks(rotation=90)
+plt.xlabel('Words')
+plt.ylabel('Frequency')
+plt.show()
