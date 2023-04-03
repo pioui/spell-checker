@@ -108,3 +108,6 @@ images/
 models/
 
 openfst-1.6.1/
+.dot
+.dot.pdf
+.pdf
