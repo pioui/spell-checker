@@ -1,10 +1,13 @@
 # OpenFST Spell checker 
 
-## Examples
-The examples folder contains the pre-lab examples we demonstrated in class.
-
 ## Setup
 
+Clone repository
+
+```bash
+git clone git@github.com:pioui/spell-checker.git
+cd spell-checker
+```
 
 Create conda envirioment
 
@@ -27,12 +30,21 @@ Install python dependencies with:
 pip install -r requirements.txt
 ```
 
+## If the setup is already done
+
+```bash
+cd repos/spell-checker
+conda activate spell-checker
+```
+
 Fetch the NLTK Gutenberg corpus using the following script.
 
 ```bash
 python scripts/fetch_gutenberg.py > data/gutenberg.txt
 ```
 This script downloads and preprocesses the corpus.
+
+##
 
 ## Proposed code structure and provided resources
 
