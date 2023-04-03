@@ -1,10 +1,21 @@
+
+import os
+
+
 # Define input and output file paths
 input_file = "./vocab/words.vocab.txt"
 words_file = "./vocab/words.syms"
 chars_file = "./vocab/chars.syms"
 
-EPS_SYMBOL = "<epsilon>"
+# Make sure the we don't continue writing in previous output files
+if os.path.exists(input_file):
+    os.remove(input_file)
+if os.path.exists(words_file):
+    os.remove(words_file)
+if os.path.exists(chars_file):
+    os.remove(chars_file)
 
+EPS_SYMBOL = "<epsilon>"
 
 def create_char_map():
     char_map = {EPS_SYMBOL: 0}
@@ -28,7 +39,7 @@ with open(input_file, "r") as f:
 # Write word indices to output file
 with open(words_file, "w") as f:
     # Write epsilon symbol
-    f.write(f"{EPS_SYMBOL}\t0\n")
+    f.write("EPS_SYMBOL\t0\n")
     # Write word indices
     for word, index in word_indices.items():
         f.write(f"{word}\t{index}\n")

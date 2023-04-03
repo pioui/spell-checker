@@ -35,7 +35,7 @@ python mkfstinput.py ${WORD} |
     # Get destination word (corrected)
     cut -f4 |
     # Ignore epsilon outputs
-    grep -v "<eps>" |
+    grep -v "<epsilon>" |
     # Ignore accepting state line
     head -n -1 |
     # Remove trailing new line
