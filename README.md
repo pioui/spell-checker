@@ -37,7 +37,7 @@ cd repos/spell-checker
 conda activate spell-checker
 ```
 
-##Corpus 
+## Corpus 
 Fetch the NLTK Gutenberg corpus using the following script.
 
 ```bash
