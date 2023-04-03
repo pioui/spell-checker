@@ -13,7 +13,7 @@ from util import EPS, format_arc
 def write_char_symbols():
     with open("vocab/chars.syms", "w") as f:
         # Write the epsilon symbol
-        f.write("0\t<eps>\n")
+        f.write("0\t<epsilon>\n")
         # Write the lowercase letters
         for i in range(26):
             c = chr(ord('a') + i)

@@ -1,4 +1,4 @@
-EPS = "<eps>"  # Define once. Use the same EPS everywhere
+EPS = "<epsilon>"  # Define once. Use the same EPS everywhere
 
 CHARS = list("abcdefghijklmnopqrstuvwxyz")
 

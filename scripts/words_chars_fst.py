@@ -3,8 +3,11 @@ input_file = "./vocab/words.vocab.txt"
 words_file = "./vocab/words.syms"
 chars_file = "./vocab/chars.syms"
 
+EPS_SYMBOL = "<epsilon>"
+
+
 def create_char_map():
-    char_map = {"ε": 0}
+    char_map = {EPS_SYMBOL: 0}
     for i in range(97, 123):
         char_map[chr(i)] = i - 96
     return char_map
@@ -25,7 +28,7 @@ with open(input_file, "r") as f:
 # Write word indices to output file
 with open(words_file, "w") as f:
     # Write epsilon symbol
-    f.write("ε\t0\n")
+    f.write(f"{EPS_SYMBOL}\t0\n")
     # Write word indices
     for word, index in word_indices.items():
         f.write(f"{word}\t{index}\n")

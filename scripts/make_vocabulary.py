@@ -1,5 +1,13 @@
 from collections import defaultdict
 import matplotlib.pyplot as plt
+import os
+
+# Define input and output file paths
+words_vocab_file = 'vocab/words.vocab.txt'
+
+# Make sure the we don't continue writing in previous output files
+if os.path.exists(words_vocab_file):
+    os.remove(words_vocab_file)
 
 # Open the corpus file and read its contents
 with open('./data/gutenberg.txt', 'r') as corpus_file:
@@ -24,7 +32,7 @@ for token in exclude_list:
     del freq_dict[token]
 
 # Open the output file and write the frequency dictionary to it
-with open('vocab/words.vocab.txt', 'w') as output_file:
+with open(words_vocab_file, 'w') as output_file:
     for token, freq in freq_dict.items():
         output_file.write(f'{token}\t\t{freq}\n')
 
