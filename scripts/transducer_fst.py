@@ -69,8 +69,3 @@ with open(transducer_file, "w") as f:
     for t in transitions:
         f.write(f"0 0 {t[0]} {t[1]} {t[2]}\n")
     f.write("0")
-
-# TODO: make a seperate bash file
-## Fstcompile –help | prep “isymbols”
-# run_cmd(f"fstcompile --isymbols={chars_file} --osymbols={chars_file} {transducer_file} >  {transducer_binfile}")
-# print(f"fstcompile --isymbols={chars_file} --osymbols={chars_file} {transducer_file} >  ./fsts/L.binfst")

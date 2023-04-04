@@ -73,14 +73,3 @@ with open(acceptor_file, "w") as f:
     for t in transitions:
         f.write(f"{t[0]} {t[1]} {t[2]} {t[3]} {t[4]}\n")
     f.write(f"{last_node}")
-
-## Fstcompile –help | prep “isymbols”
-
-# TODO: make a seperate bash file
-# Optimize lexicon
-
-# print(f"fstcompile --isymbols={chars_file} --osymbols={words_file} {acceptor_file} >  {acceptor_binfile}")
-
-# print(f"fstrmepsilon {acceptor_binfile} | fstdeterminize | fstminimize > {optacceptor_binfile}")
-
-# print(f"fstcompile --isymbols={chars_file} --osymbols={words_file} {optacceptor_file} >  {optacceptor_binfile}")
