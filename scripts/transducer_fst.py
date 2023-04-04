@@ -1,6 +1,7 @@
 from helpers import run_cmd
 import os
-import argparse
+import argparse 
+from util import EPS
 
 # Parse input arguments
 parser = argparse.ArgumentParser(description='Transducer fst')
@@ -30,7 +31,6 @@ if os.path.exists(transducer_file):
 
 # First, we need to define some constants that will be used later.
 # We'll also define a weight of 1 for all non-matching character pairs.
-EPS_SYMBOL = "<epsilon>"
 DELETION_WEIGHT = args.dw
 INSERTION_WEIGHT = args.iw
 SUBSTITUTION_WEIGHT = args.sw
@@ -49,16 +49,16 @@ transitions = []
 for c1 in symbol_table:
     for c2 in symbol_table:
         # No edit
-        if c1 == EPS_SYMBOL and c2 == EPS_SYMBOL:
+        if c1 == EPS and c2 == EPS:
             continue
         elif c1 == c2:
             transitions.append((c1, c2, 0))
         # Insertion
-        elif c1 == EPS_SYMBOL:
-            transitions.append((EPS_SYMBOL, c2, INSERTION_WEIGHT))
+        elif c1 == EPS:
+            transitions.append((EPS, c2, INSERTION_WEIGHT))
         # Deletion
-        elif c2 == EPS_SYMBOL:
-            transitions.append((c1, EPS_SYMBOL, DELETION_WEIGHT))
+        elif c2 == EPS:
+            transitions.append((c1, EPS, DELETION_WEIGHT))
         # Subsitution
         else:
             transitions.append((c1, c2, SUBSTITUTION_WEIGHT))
@@ -67,7 +67,8 @@ for c1 in symbol_table:
 # We'll use state 0 as the only state, and add transitions for each possible input symbol.
 with open(transducer_file, "w") as f:
     for t in transitions:
-        f.write(f"0\t0\t{t[0]}\t{t[1]}\t{t[2]}\n")
+        f.write(f"0 0 {t[0]} {t[1]} {t[2]}\n")
+    f.write("0")
 
 # TODO: make a seperate bash file
 ## Fstcompile –help | prep “isymbols”

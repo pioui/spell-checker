@@ -1,4 +1,4 @@
-EPS = "<epsilon>"  # Define once. Use the same EPS everywhere
+EPS = "<eps>"  # Define once. Use the same EPS everywhere
 
 CHARS = list("abcdefghijklmnopqrstuvwxyz")
 
@@ -35,6 +35,8 @@ def format_arc(src, dst, ilabel, olabel, weight=0):
         (str) The formatted line as a string
     http://www.openfst.org/twiki/bin/view/FST/FstQuickTour#CreatingShellFsts
     """
+    return str(src) + " " + str(dst) + " " + ilabel + " " + olabel + " " + str(weight)
+
     # TODO: INSERT YOUR CODE HERE
     raise NotImplementedError(
         "You need to implement format_arc function in scripts/util.py!!!"

@@ -34,7 +34,7 @@ for token in exclude_list:
 # Open the output file and write the frequency dictionary to it
 with open(words_vocab_file, 'w') as output_file:
     for token, freq in freq_dict.items():
-        output_file.write(f'{token}\t\t{freq}\n')
+        output_file.write(f'{token}\t{freq}\n')
 
 
 sorted_freq = sorted(freq_dict.items(), key=lambda x: x[1], reverse=True)

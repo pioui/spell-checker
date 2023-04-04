@@ -6,18 +6,28 @@
 # bash scripts/create_spell_checker.py 
 
 
+# python3 scripts/fetch_gutenberg.py > data/gutenberg.txt
 
-python3 scripts/transducer_fst.py
-fstcompile --isymbols=./vocab/chars.syms --osymbols=./vocab/chars.syms ./fsts/L.fst >  ./fsts/L.binfst
-fstarcsort ./fsts/L.binfst ./fsts/L_sorted.binfst
-
-
-
-python3 scripts/acceptor_fst.py
-fstcompile --isymbols=./vocab/chars.syms --osymbols=./vocab/words.syms ./fsts/V.fst >  ./fsts/V.binfst
-fstrmepsilon ./fsts/V.binfst | fstdeterminize | fstminimize > ./fsts/V_opt.binfst
-fstarcsort ./fsts/V_opt.binfst ./fsts/V_opt_sorted.binfst
+# python3 scripts/make_vocabulary.py
+# python3 scripts/words_chars_syms.py
 
 
-fstcompose ./fsts/L_sorted.binfst ./fsts/V_opt_sorted.binfst ./fsts/S.binfst 
 
+
+
+# python3 scripts/transducer_fst.py
+fstcompile --isymbols=./vocab/chars.syms --osymbols=./vocab/chars.syms ./fsts/L.fst ./fsts/L.binfst
+
+
+# python3 scripts/acceptor_fst.py
+fstcompile --isymbols=./vocab/chars.syms --osymbols=./vocab/words.syms ./fsts/V.txt ./fsts/V.fst
+
+
+
+
+fstarcsort --sort_type="olabel" ./fsts/L.binfst ./fsts/Lsorted.fst
+fstarcsort ./fsts/V.fst ./fsts/Vsorted.fst
+fstcompose ./fsts/Lsorted.fst ./fsts/Vsorted.fst ./fsts/S.fst
+
+
+# bash scripts/predict.sh ./fsts/S.fst cit
