@@ -3,7 +3,7 @@
 # Run pipeline for edit distance spell checker
 
 # Usage:
-# bash scripts/create_spell_checker.py 
+# bash scripts/spell_checker_S.py 
 
 # Fetch data
 python3 scripts/fetch_gutenberg.py > data/gutenberg.txt
@@ -13,15 +13,15 @@ python3 scripts/make_vocabulary.py
 python3 scripts/words_chars_syms.py
 
 # Make and compile tranducer
-python3 scripts/transducer_fst.py
+python3 scripts/transducer_L.py
 fstcompile --isymbols=./vocab/chars.syms --osymbols=./vocab/chars.syms ./fsts/L.fst ./fsts/L.binfst
 
 # Make and compile transducer with un-balanced weights
-python3 scripts/transducer_fst.py -iw 1 -dw 2 -sw 3 -tf L_unbalanced.fst
+python3 scripts/transducer_L.py -iw 1 -dw 2 -sw 3 -tf L_unbalanced.fst
 fstcompile --isymbols=./vocab/chars.syms --osymbols=./vocab/chars.syms ./fsts/L_unbalanced.fst ./fsts/L_unbalanced.binfst
 
 # Make optimize and compile acceptor
-python3 scripts/acceptor_fst.py
+python3 scripts/acceptor_V.py
 fstcompile --isymbols=./vocab/chars.syms --osymbols=./vocab/words.syms ./fsts/V.txt ./fsts/V.fst
 fstrmepsilon ./fsts/V.fst | fstdeterminize | fstminimize > ./fsts/V_opt.fst
 

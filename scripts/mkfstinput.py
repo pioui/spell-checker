@@ -29,7 +29,6 @@ def make_input_fst(word):
     s, accept_state = 0, 10000
 
     for i, c in enumerate(word):
-        # TODO: You need to implement format_arc function in scripts/util
         print(format_arc(s, s + 1, c, c, weight=0))
         s += 1
 
