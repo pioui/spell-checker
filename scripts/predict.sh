@@ -17,12 +17,12 @@ CURRENT_DIRECTORY=$(dirname $0)
 
 ###
 # Make sure these files exist
-CHARSYMS=${CURRENT_DIRECTORY}/../syms/chars.syms
-WORDSYMS=${CURRENT_DIRECTORY}/../syms/word.syms
+CHARSYMS=${CURRENT_DIRECTORY}/../vocab/chars.syms
+WORDSYMS=${CURRENT_DIRECTORY}/../vocab/words.syms
 ###
 
 # Make input fst for the misspelled word
-python mkfstinput.py ${WORD} |
+python ./scripts/mkfstinput.py ${WORD} |
     # Compile and compose with the spell checker
     fstcompile --isymbols=${CHARSYMS} --osymbols=${CHARSYMS} |
     fstcompose - ${SPELL_CHECKER_COMPILED} |
@@ -35,7 +35,7 @@ python mkfstinput.py ${WORD} |
     # Get destination word (corrected)
     cut -f4 |
     # Ignore epsilon outputs
-    grep -v "<epsilon>" |
+    grep -v "<eps>" |
     # Ignore accepting state line
     head -n -1 |
     # Remove trailing new line

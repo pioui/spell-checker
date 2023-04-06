@@ -5,7 +5,7 @@
 # Usage:
 #   bash scripts/word_edits.sh tst test
 # Output:
-#   <epsilon>" e
+#   <eps>" e
 
 # Command line args
 WRONG=${1}

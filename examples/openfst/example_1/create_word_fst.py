@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 import argparse
 import fileinput
-
-EPS = "<epsilon>"
+from util import EPS
 
 parser = argparse.ArgumentParser(
     prog="chcase", description="Change letter case in file"
