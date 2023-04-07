@@ -17,7 +17,7 @@ CURRENT_DIRECTORY=$(dirname $0)
 
 ###
 # Make sure to create these files
-CHARSSYMS=${CURRENT_DIRECTORY}/../syms/chars.syms  # Character symbol table
+CHARSSYMS=${CURRENT_DIRECTORY}/../vocab/chars.syms  # Character symbol table
 VANILLA_LEVENSHTEIN=${CURRENT_DIRECTORY}/../fsts/L.binfst  # Compile basic Levenshtein FST
 ###
 
@@ -26,13 +26,13 @@ MLFST=${CURRENT_DIRECTORY}/../fsts/ML.binfst
 
 
 # Compose M with L to create  ML.fst
-python mkfstinput.py ${WRONG} |
+python scripts/mkfstinput.py ${WRONG} |
     fstcompile --isymbols=${CHARSSYMS} --osymbols=${CHARSSYMS} |
     fstcompose - ${VANILLA_LEVENSHTEIN} > ${MLFST}
 
 
 # Create N.fst and compose ML.fst with N.fst to create MLN.fst
-python mkfstinput.py ${CORRECT} |
+python scripts/mkfstinput.py ${CORRECT} |
     fstcompile --isymbols=${CHARSSYMS} --osymbols=${CHARSSYMS} |
     fstcompose ${MLFST} - |
     # Run shortest path to get the edits for the minimum edit distance

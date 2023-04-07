@@ -36,8 +36,3 @@ def format_arc(src, dst, ilabel, olabel, weight=0):
     http://www.openfst.org/twiki/bin/view/FST/FstQuickTour#CreatingShellFsts
     """
     return str(src) + " " + str(dst) + " " + ilabel + " " + olabel + " " + str(weight)
-
-    # TODO: INSERT YOUR CODE HERE
-    raise NotImplementedError(
-        "You need to implement format_arc function in scripts/util.py!!!"
-    )

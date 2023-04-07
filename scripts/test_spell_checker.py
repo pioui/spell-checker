@@ -1,6 +1,17 @@
 from helpers import run_cmd
+import argparse 
+
+# Parse input arguments
+parser = argparse.ArgumentParser(description='Transducer fst')
+parser.add_argument('-tf', type=str, default = './data/spell_test.txt', help='Test file .txt')
+parser.add_argument('-scf', type=str, default = './fsts/S.fst', help='Spell checker .fst file to be tested')
+
+
+args = parser.parse_args()
+
 # Define input file path
-test_file = './data/spell_test.txt'
+test_file = args.tf
+spell_checker_fst = args.scf
 
 # Limit tests to the first 20 words
 count = 0
@@ -23,7 +34,7 @@ for word in word_table.keys():
     print('{:20s} {:20s}'.format('Input word ', 'Prediction'))
     print('-----------------------------------')
     for wrong_word in word_table[word]:
-        prediction = run_cmd(f'bash scripts/predict.sh ./fsts/S.fst {wrong_word}')
+        prediction = run_cmd(f'bash scripts/predict.sh {spell_checker_fst} {wrong_word}')
         # print(f' {wrong_word} --> {prediction}')
         print('{:20s} {:20s}'.format(wrong_word, prediction))
     print('-----------------------------------')
