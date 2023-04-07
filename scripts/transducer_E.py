@@ -1,25 +1,42 @@
 from helpers import run_cmd
 import os
-import argparse 
+import argparse
 from util import EPS, INFINITY
-from numpy import log 
+from numpy import log
+
+"""
+Calculate acceptor V
+Acceptor, we create an .fst weighted transducer that implements the Levenshtein distance:
+Usage:
+  python3 scripts/transducer_E.py -tf E.fst  -ef edits_frequency.txt -cf chars.syms 
+
+"""
+
 # Parse input arguments
-parser = argparse.ArgumentParser(description='Transducer fst')
+parser = argparse.ArgumentParser(description="Transducer fst")
 
-parser.add_argument('-tf', type=str, default = "E.fst", help='Tranducer .fst filename')
+parser.add_argument("-tf", type=str, default="E.fst", help="Tranducer .fst filename")
 
-parser.add_argument('-ef', type=str, default = "./data/edits_frequency.txt", help='Edit frequency .txt filename')
-parser.add_argument('-cf', type=str, default = "./vocab/chars.syms", help='Characters .syms filepath')
+parser.add_argument(
+    "-ef",
+    type=str,
+    default="./data/edits_frequency.txt",
+    help="Edit frequency .txt filename",
+)
+parser.add_argument(
+    "-cf", type=str, default="./vocab/chars.syms", help="Characters .syms filepath"
+)
 
 args = parser.parse_args()
 
 
 # Manage files and directories
-fst_folder = './fsts/'
-if not os.path.exists(fst_folder): os.makedirs(fst_folder)
+fst_folder = "./fsts/"
+if not os.path.exists(fst_folder):
+    os.makedirs(fst_folder)
 
 # Define input and output file paths
-transducer_file = fst_folder+args.tf
+transducer_file = fst_folder + args.tf
 chars_file = args.cf
 edits_frequency_file = args.ef
 
@@ -39,7 +56,7 @@ edit_frequency = {}
 with open(edits_frequency_file, "r") as f:
     for line in f:
         c1, c2, frequency = line.strip().split()
-        edit_frequency[(c1,c2)] = float(frequency)
+        edit_frequency[(c1, c2)] = float(frequency)
 
 # Next, we'll create a string for each possible transition in the L-transducer.
 # We'll represent each transition as a triple (input symbol, output symbol, weight).
@@ -51,8 +68,8 @@ for c1 in symbol_table:
             continue
         elif c1 == c2:
             transitions.append((c1, c2, 0))
-        elif (c1,c2) in edit_frequency:
-            transitions.append((c1, c2, -log(edit_frequency[(c1,c2)])))
+        elif (c1, c2) in edit_frequency:
+            transitions.append((c1, c2, -log(edit_frequency[(c1, c2)])))
         else:
             transitions.append((c1, c2, INFINITY))
 

@@ -1,6 +1,12 @@
 from util import EPS
 import os
 
+"""
+Script to make symbols for words and characters.
+Usage:
+  python3 scripts/words_chars_syms.py 
+
+"""
 
 # Define input and output file paths
 vocab_file = "./vocab/words.vocab.txt"
@@ -19,6 +25,7 @@ def create_char_map():
     for i in range(97, 123):
         char_map[chr(i)] = i - 96
     return char_map
+
 
 char_map = create_char_map()
 with open(chars_file, "w") as f:

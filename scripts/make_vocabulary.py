@@ -2,21 +2,29 @@ from collections import defaultdict
 import matplotlib.pyplot as plt
 import os
 
+
+"""
+Script to create and save the vocabulary
+Usage:
+  python3 scripts/make_vocabulary.py 
+
+"""
+
 # Define input and output file paths
-words_vocab_file = 'vocab/words.vocab.txt'
+words_vocab_file = "vocab/words.vocab.txt"
 
 # Make sure the we don't continue writing in previous output files
 if os.path.exists(words_vocab_file):
     os.remove(words_vocab_file)
 
 # Open the corpus file and read its contents
-with open('./data/gutenberg.txt', 'r') as corpus_file:
+with open("./data/gutenberg.txt", "r") as corpus_file:
     corpus = corpus_file.read()
 
 # Create a defaultdict to store the token frequencies
 words_vocab = defaultdict(int)
 
-# Split the corpus into tokens 
+# Split the corpus into tokens
 # TODO: use nltk tokenizer
 tokens = corpus.split()
 
@@ -32,9 +40,9 @@ for token in exclude_list:
     del words_vocab[token]
 
 # Open the output file and write the frequency dictionary to it
-with open(words_vocab_file, 'w') as output_file:
+with open(words_vocab_file, "w") as output_file:
     for token, freq in words_vocab.items():
-        output_file.write(f'{token}\t{freq}\n')
+        output_file.write(f"{token}\t{freq}\n")
 
 
 sorted_freq = sorted(words_vocab.items(), key=lambda x: x[1], reverse=True)
@@ -46,6 +54,6 @@ freqs = [pair[1] for pair in sorted_freq]
 # plot the histogram
 plt.bar(labels[:100], freqs[:100])
 plt.xticks(rotation=90)
-plt.xlabel('Words')
-plt.ylabel('Frequency')
+plt.xlabel("Words")
+plt.ylabel("Frequency")
 plt.show()

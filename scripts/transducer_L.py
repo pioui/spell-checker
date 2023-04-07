@@ -1,27 +1,38 @@
 from helpers import run_cmd
 import os
-import argparse 
+import argparse
 from util import EPS
 
+"""
+Calculate acceptor V
+Acceptor, we create an .fst transducer that implements the Levenshtein distance:
+Usage:
+  python3 scripts/transducer_L.py -tf L.fst  chars.syms 
+
+"""
+
 # Parse input arguments
-parser = argparse.ArgumentParser(description='Transducer fst')
-parser.add_argument('-dw', type=str, default = 1, help='Deletion weight')
-parser.add_argument('-iw', type=str, default = 1, help='Insertion weight')
-parser.add_argument('-sw', type=str, default = 1, help='Substitution weight')
+parser = argparse.ArgumentParser(description="Transducer fst")
+parser.add_argument("-dw", type=str, default=1, help="Deletion weight")
+parser.add_argument("-iw", type=str, default=1, help="Insertion weight")
+parser.add_argument("-sw", type=str, default=1, help="Substitution weight")
 
-parser.add_argument('-tf', type=str, default = "L.fst", help='Tranducer .fst filename')
+parser.add_argument("-tf", type=str, default="L.fst", help="Tranducer .fst filename")
 
-parser.add_argument('-cf', type=str, default = "./vocab/chars.syms", help='Characters .syms filepath')
+parser.add_argument(
+    "-cf", type=str, default="./vocab/chars.syms", help="Characters .syms filepath"
+)
 
 args = parser.parse_args()
 
 
 # Manage files and directories
-fst_folder = './fsts/'
-if not os.path.exists(fst_folder): os.makedirs(fst_folder)
+fst_folder = "./fsts/"
+if not os.path.exists(fst_folder):
+    os.makedirs(fst_folder)
 
 # Define input and output file paths
-transducer_file = fst_folder+args.tf
+transducer_file = fst_folder + args.tf
 chars_file = args.cf
 
 # Make sure the we don't continue writing in previous output files

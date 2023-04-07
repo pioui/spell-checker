@@ -1,16 +1,10 @@
 #!/usr/bin/env bash
 
-# Run pipeline for edit distance spell checker
+# Run pipeline for vanilla edit distance spell checker
 
 # Usage:
 # bash scripts/spell_checker_S.py 
 
-# Fetch data
-python3 scripts/fetch_gutenberg.py > data/gutenberg.txt
-
-# Create vocabulary and symbolic files
-python3 scripts/make_vocabulary.py
-python3 scripts/words_chars_syms.py
 
 # Make and compile tranducer
 python3 scripts/transducer_L.py

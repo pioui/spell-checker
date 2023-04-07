@@ -37,57 +37,31 @@ cd repos/spell-checker
 conda activate spell-checker
 ```
 
-## Corpus 
-Fetch the NLTK Gutenberg corpus using the following script.
+## Data 
+Fetch the NLTK Gutenberg corpus and do the neccesery preproccessing in the data using the following script.
 
 ```bash
-python scripts/fetch_gutenberg.py > data/gutenberg.txt
+bash scripts/data_pipeline.sh
 ```
-This script downloads and preprocesses the corpus.
+This script downloads and preprocesses the corpus, creates the vocabulary, the .syms files for the words and the characters and calculates the frequency of the word edits.
 
 ##
 
-## Proposed code structure and provided resources
+## Create Spell Checkers
 
-We propose the following structure to organize your code.
+```bash
+bash scripts/spell_ckeckers_pipeline.sh
 ```
-├── data                            # -> Train and test corpora
-│   ├── spell_test.txt              # -> spell checker evaluation corpus
-│   └── wiki.txt                    # -> Wikipedial word misspellings
-├── fsts                            # -> Compiled FSTs and FST description files
-├── install_openfst.sh              # -> OpenFST installation script
-├── README.md                       # -> This file.
-├── requirements.txt                # -> Python dependencies
-├── scripts                         # -> Python and Bash scripts go here
-│   ├── fetch_gutenberg.py          # -> Provided script to download the gutenberg corpus
-│   ├── helpers.py                  # -> Provided helper functions
-│   ├── mkfstinput.py               # -> Provided script to pass a word as input to the spell checker
-│   ├── predict.sh                  # -> Provided script to run prediction for a word
-│   ├── run_evaluation.py           # -> Provided script to run evaluation on the test corpus
-│   ├── util.py                     # -> Stubs to fill in some of your utility functions. TODO
-│   ├── w2v_sentiment_analysis.py   # -> Complete the code here for sentiment analysis using word2vec
-│   ├── w2v_train.py                # -> Complete the code here to train a word2vec model on the gutenberg corpus
-│   └── word_edits.sh               # -> Provided script to get the minimum edit distance edits between two words
-└── vocab                           # -> Place your vocab and syms files here
-```
-We also propose to use the `.fst` suffix for fst description files and the `.binfst` suffix for compiled fsts.
+This scrips creates 4 spell-checkers: LV, EV, LVW, EVW. Which are different combinations of .fst automata L, E, V, E. Each of the automatum has a different functionality:
 
-We recommend you study the code we provide before you start and try to run some basic examples.
-This will give you some basic understanding about how to script for OpenFST.
-Also, you will probably avoid reimplementing existing functionality
+L: it is an edit distance Lavenstein transducer.
+E: it is an weighted edit distance Lavenstein transducer. The weight of each edit is calculated by it's frequency.
+V: it is an simple vocabulary word acceptor.
+W: it is a more sophisticated vocabulary word acceptor which takes into considaration the frequency of each word in the corpus.
 
+## Spell checker evaluation
 
-## Spell checker using Finite state transducers
-
-In this part you are going to implement a spell checker using Finite state transducers and the
-OpenFST library. The spell checker consists of two parts: a Levenshtein transducer and a word
-acceptor.
-
-Follow the instructions in the lab handouts (available through mycourses) to complete this part.
-
-### Spell checker evaluation
-
-Once you have implemented a spell checker, e.g. `fsts/MY_SPELL_CHECKER.binfst` you can use the
+Once we have implemented a spell checker, e.g. `fsts/MY_SPELL_CHECKER.binfst` you can use the
 following script for evaluation on the provided test set.
 
 Run:
@@ -98,4 +72,13 @@ python scripts/run_evaluation.py fsts/MY_SPELL_CHECKER.binfst
 
 The script will run the spell checker on the test set and print the model accuracy (percentage
 of misspelled words that are corrected appropriately).
+
+### Results
+
+| Spell-checker  | Accuracy  |
+|--------------- |-----------|
+|LV  |0.5962962962962963     | 
+|EV  |0.6925925925925925     |
+|LVW |0.02962962962962963    |
+|EVW |0.6370370370370371     |
 

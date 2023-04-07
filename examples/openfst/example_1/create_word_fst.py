@@ -8,10 +8,7 @@ parser = argparse.ArgumentParser(
 )
 parser.add_argument("-u", "--upper", action="store_true", help="Change to upper case")
 parser.add_argument(
-    "files",
-    metavar="FILE",
-    nargs="*",
-    help="files to read, if empty, stdin is used",
+    "files", metavar="FILE", nargs="*", help="files to read, if empty, stdin is used"
 )
 args = parser.parse_args()
 

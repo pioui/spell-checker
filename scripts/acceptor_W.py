@@ -1,24 +1,42 @@
 import os
-from numpy import log 
+from numpy import log
 import argparse
 from util import EPS
 
-# Parse input arguments
-parser = argparse.ArgumentParser(description='Acceptor fst')
-parser.add_argument('-af', type=str, default = "W.fst", help='Acceptor .fst filename')
+"""
+Calculate acceptor V
+Acceptor, we create an .fst which corrects the word and an .fst that understands how often a word exists.
+Usage:
+  python3 scripts/acceptor_W.py -af W.fst -wvf words.vocab.txt -cf chars.syms -wf words.syms
 
-parser.add_argument('-wvf', type=str, default = "./vocab/words.vocab.txt", help='Words vocabulary with frequencies')
-parser.add_argument('-cf', type=str, default = "./vocab/chars.syms", help='Characters .syms filepath')
-parser.add_argument('-wf', type=str, default = "./vocab/words.syms", help='Words .syms filepath')
+"""
+
+# Parse input arguments
+parser = argparse.ArgumentParser(description="Acceptor fst")
+parser.add_argument("-af", type=str, default="W.fst", help="Acceptor .fst filename")
+
+parser.add_argument(
+    "-wvf",
+    type=str,
+    default="./vocab/words.vocab.txt",
+    help="Words vocabulary with frequencies",
+)
+parser.add_argument(
+    "-cf", type=str, default="./vocab/chars.syms", help="Characters .syms filepath"
+)
+parser.add_argument(
+    "-wf", type=str, default="./vocab/words.syms", help="Words .syms filepath"
+)
 
 args = parser.parse_args()
 
 # Manage files and directories
-fst_folder = './fsts/'
-if not os.path.exists(fst_folder): os.makedirs(fst_folder)
+fst_folder = "./fsts/"
+if not os.path.exists(fst_folder):
+    os.makedirs(fst_folder)
 
 # Define input and output file paths
-acceptor_file = fst_folder+args.af
+acceptor_file = fst_folder + args.af
 chars_file = args.cf
 words_file = args.wf
 words_vocab_file = args.wvf
@@ -35,7 +53,7 @@ with open(words_vocab_file, "r") as f:
     for line in f:
         word, frequency = line.strip().split()
         words_vocab[word] = int(frequency)
-        total  = total + int(frequency)
+        total = total + int(frequency)
 
 
 # Next, we'll create a string for each possible transition in the letters of each word in the V-transducer.
@@ -44,12 +62,13 @@ with open(words_vocab_file, "r") as f:
 transitions = []
 node_count = 0
 first_node = 0
-last_node=92721 #TODO: calculate it more elegantly, not hard coded.
+last_node = 92721  # TODO: calculate it more elegantly, not hard coded.
 
 for word in words_vocab:
-    if word == EPS: continue
+    if word == EPS:
+        continue
 
-    transitions.append((word, word, round(-log(words_vocab[word]/total))))
+    transitions.append((word, word, round(-log(words_vocab[word] / total))))
 
     # nodes = [*range(0,len(word),1)]
     # nodes = [node+node_count for node in nodes]
@@ -65,7 +84,6 @@ for word in words_vocab:
     #     # Last letter
     #     transitions.append((nodes[i], nodes[i+1], word[i], EPS, 0 ))
     #     node_count = node_count+1
-
 
 
 # Finally, we'll write the L-transducer to the L.fst file in OpenFST text format.

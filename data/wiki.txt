@@ -1792,7 +1792,6 @@ garantee	guarantee
 garanteed	guaranteed
 garantees	guarantees
 garnison	garrison
-gauarana	guaraná
 gaurantee	guarantee
 gauranteed	guaranteed
 gaurantees	guarantees
@@ -2620,7 +2619,6 @@ nickle	nickel
 nightime	nighttime
 nineth	ninth
 ninteenth	nineteenth
-ninties	1990s
 ninty	ninety
 nkow	know
 nkwo	know
