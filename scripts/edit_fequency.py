@@ -11,10 +11,25 @@ Usage:
 
 """
 # Parse input arguments
-parser = argparse.ArgumentParser(description='Word edits calculation')
-parser.add_argument('-df', type=str, default = "./data/wiki.txt", help='common mistakes data .txt filename')
-parser.add_argument('-ef', type=str, default = "./data/edits.txt", help='.txt filename to save all word edits ')
-parser.add_argument('-ff', type=str, default = "./data/edits_frequency.txt", help='.txt filename to save all word edits and their frequency')
+parser = argparse.ArgumentParser(description="Word edits calculation")
+parser.add_argument(
+    "-df",
+    type=str,
+    default="./data/wiki.txt",
+    help="common mistakes data .txt filename",
+)
+parser.add_argument(
+    "-ef",
+    type=str,
+    default="./data/edits.txt",
+    help=".txt filename to save all word edits ",
+)
+parser.add_argument(
+    "-ff",
+    type=str,
+    default="./data/edits_frequency.txt",
+    help=".txt filename to save all word edits and their frequency",
+)
 
 args = parser.parse_args()
 
@@ -35,15 +50,19 @@ with open(data_file, "r") as f:
     for line in f:
         wrong, correct = line.strip().split()
         try:
-            word_edits = str(run_cmd(f'bash ./scripts/word_edits.sh {wrong} {correct}')).strip().split()
-        except :
+            word_edits = (
+                str(run_cmd(f"bash ./scripts/word_edits.sh {wrong} {correct}"))
+                .strip()
+                .split()
+            )
+        except:
             # Raise exception in case the word has characters other than lowercase letters
-            word_edits = ''
+            word_edits = ""
             continue
 
-        for i in range(0,len(word_edits),2):
+        for i in range(0, len(word_edits), 2):
             source = word_edits[i]
-            target = word_edits[i+1]
+            target = word_edits[i + 1]
             edits.append((source, target))
 
 
@@ -56,7 +75,7 @@ with open(edits_file, "w") as f:
 edit_frequency = {}
 for e in edits:
     if e not in edit_frequency:
-        edit_frequency[e]=1
+        edit_frequency[e] = 1
     else:
         edit_frequency[e] += 1
 

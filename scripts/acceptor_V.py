@@ -12,20 +12,25 @@ Usage:
 """
 
 # Parse input arguments
-parser = argparse.ArgumentParser(description='Acceptor fst')
-parser.add_argument('-af', type=str, default = "V.txt", help='Acceptor .txt filename')
+parser = argparse.ArgumentParser(description="Acceptor fst")
+parser.add_argument("-af", type=str, default="V.txt", help="Acceptor .txt filename")
 
-parser.add_argument('-cf', type=str, default = "./vocab/chars.syms", help='Characters .syms filepath')
-parser.add_argument('-wf', type=str, default = "./vocab/words.syms", help='Words .syms filepath')
+parser.add_argument(
+    "-cf", type=str, default="./vocab/chars.syms", help="Characters .syms filepath"
+)
+parser.add_argument(
+    "-wf", type=str, default="./vocab/words.syms", help="Words .syms filepath"
+)
 
 args = parser.parse_args()
 
 # Manage files and directories
-fst_folder = './fsts/'
-if not os.path.exists(fst_folder): os.makedirs(fst_folder)
+fst_folder = "./fsts/"
+if not os.path.exists(fst_folder):
+    os.makedirs(fst_folder)
 
 # Define input and output file paths
-acceptor_file = fst_folder+args.af
+acceptor_file = fst_folder + args.af
 chars_file = args.cf
 words_file = args.wf
 
@@ -52,26 +57,26 @@ with open(words_file, "r") as f:
 transitions = []
 node_count = 0
 first_node = 0
-last_node=92721 #TODO: calculate it more elegantly, not hard coded.
+last_node = 92721  # TODO: calculate it more elegantly, not hard coded.
 
 for word in words_table:
-    if word == EPS: continue
+    if word == EPS:
+        continue
 
-    nodes = [*range(0,len(word),1)]
-    nodes = [node+node_count for node in nodes]
-    nodes[0]=first_node
+    nodes = [*range(0, len(word), 1)]
+    nodes = [node + node_count for node in nodes]
+    nodes[0] = first_node
 
     word_length = len(word)
     for i in range(word_length):
 
-        #Last letter
-        if i == word_length-1:
+        # Last letter
+        if i == word_length - 1:
             transitions.append((nodes[i], last_node, word[i], word, EDGE_WEIGHT))
             continue
 
-        transitions.append((nodes[i], nodes[i+1], word[i], EPS, EDGE_WEIGHT))
-        node_count = node_count+1
-
+        transitions.append((nodes[i], nodes[i + 1], word[i], EPS, EDGE_WEIGHT))
+        node_count = node_count + 1
 
 
 # Finally, we'll write the L-transducer to the L.fst file in OpenFST text format.

@@ -26,6 +26,7 @@ def create_char_map():
         char_map[chr(i)] = i - 96
     return char_map
 
+
 char_map = create_char_map()
 with open(chars_file, "w") as f:
     for char, index in char_map.items():

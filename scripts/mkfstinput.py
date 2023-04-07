@@ -19,7 +19,7 @@ from util import EPS, format_arc
 #             c = chr(ord('a') + i)
 #             f.write(f"{i+1}\t{c}\n")
 
-            
+
 def make_input_fst(word):
     """Create an fst that accepts a word letter by letter
     This can be composed with other FSTs, e.g. the spell
@@ -34,7 +34,7 @@ def make_input_fst(word):
 
         if i == len(word) - 1:
             print(format_arc(s, accept_state, EPS, EPS, weight=0))
-    
+
     print(accept_state)
 
 
