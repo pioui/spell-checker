@@ -1,11 +1,11 @@
 import os
-
+from numpy import log 
 import argparse
 from util import EPS
 
 # Parse input arguments
 parser = argparse.ArgumentParser(description='Acceptor fst')
-parser.add_argument('-af', type=str, default = "W.txt", help='Acceptor .txt filename')
+parser.add_argument('-af', type=str, default = "W.fst", help='Acceptor .fst filename')
 
 parser.add_argument('-wvf', type=str, default = "./vocab/words.vocab.txt", help='Words vocabulary with frequencies')
 parser.add_argument('-cf', type=str, default = "./vocab/chars.syms", help='Characters .syms filepath')
@@ -35,7 +35,7 @@ with open(words_vocab_file, "r") as f:
     for line in f:
         word, frequency = line.strip().split()
         words_vocab[word] = int(frequency)
-        total + = int(frequency)
+        total  = total + int(frequency)
 
 
 # Next, we'll create a string for each possible transition in the letters of each word in the V-transducer.
@@ -49,26 +49,29 @@ last_node=92721 #TODO: calculate it more elegantly, not hard coded.
 for word in words_vocab:
     if word == EPS: continue
 
-    nodes = [*range(0,len(word),1)]
-    nodes = [node+node_count for node in nodes]
-    nodes[0]=first_node
+    transitions.append((word, word, round(-log(words_vocab[word]/total))))
 
-    word_length = len(word)
-    for i in range(word_length):
+    # nodes = [*range(0,len(word),1)]
+    # nodes = [node+node_count for node in nodes]
+    # nodes[0]=first_node
 
-        if i == word_length-1:
-            transitions.append((nodes[i], last_node, word[i], word, EDGE_WEIGHT))
-            continue
+    # word_length = len(word)
+    # for i in range(word_length):
 
-        # Last letter
-        transitions.append((nodes[i], nodes[i+1], word[i], EPS, words_vocab[word]/total))
-        node_count = node_count+1
+    #     if i == word_length-1:
+    #         transitions.append((nodes[i], last_node, word[i], word, words_vocab[word]/total))
+    #         continue
+
+    #     # Last letter
+    #     transitions.append((nodes[i], nodes[i+1], word[i], EPS, 0 ))
+    #     node_count = node_count+1
 
 
 
 # Finally, we'll write the L-transducer to the L.fst file in OpenFST text format.
 # We'll use state 0 as the only state, and add transitions for each possible input symbol.
 with open(acceptor_file, "w") as f:
+    f.write(f"0 0 {EPS} {EPS} 0\n")
     for t in transitions:
-        f.write(f"{t[0]} {t[1]} {t[2]} {t[3]} {t[4]}\n")
-    f.write(f"{last_node}")
+        f.write(f"0 0 {t[0]} {t[1]} {t[2]}\n")
+    f.write(f"0")

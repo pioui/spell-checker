@@ -11,14 +11,14 @@ fstcompile --isymbols=./vocab/chars.syms --osymbols=./vocab/chars.syms ./fsts/E.
 
 
 # Make optimize and compile acceptor
-python3 scripts/acceptor_V.py
-fstcompile --isymbols=./vocab/chars.syms --osymbols=./vocab/words.syms ./fsts/V.txt ./fsts/V.fst
-fstrmepsilon ./fsts/V.fst | fstdeterminize | fstminimize > ./fsts/V_opt.fst
+# python3 scripts/acceptor_V.py
+# fstcompile --isymbols=./vocab/chars.syms --osymbols=./vocab/words.syms ./fsts/V.txt ./fsts/V.fst
+# fstrmepsilon ./fsts/V.fst | fstdeterminize | fstminimize > ./fsts/V_opt.fst
 
 
 # Sort output of transducer and input of acceptor to match
 fstarcsort --sort_type="olabel" ./fsts/E.binfst ./fsts/E_sorted.fst
-fstarcsort ./fsts/V_opt.fst ./fsts/V_sorted.fst
+# fstarcsort ./fsts/V_opt.fst ./fsts/V_sorted.fst
 
 # Compose to create the spellcheckers
 fstcompose ./fsts/E_sorted.fst ./fsts/V_sorted.fst ./fsts/EV.fst
