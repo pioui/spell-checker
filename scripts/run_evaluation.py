@@ -25,7 +25,7 @@ def read_test_set(fname):
 
 
 def correct_word(word, corrector):
-    corrected = run_cmd(f"bash predict.sh {corrector} {word}")
+    corrected = run_cmd(f"bash ./scripts/predict.sh {corrector} {word}")
 
     return corrected.strip()
 
@@ -35,6 +35,7 @@ def run_spell_checker(pairs, corrector):
 
     for wrong, correct in tqdm(pairs):
         corrected = correct_word(wrong, corrector)
+        print(wrong, corrected)
         tqdm.write(f"{wrong} -> {corrected}: {correct}")
 
         if corrected == correct:
@@ -43,6 +44,6 @@ def run_spell_checker(pairs, corrector):
 
 
 if __name__ == "__main__":
-    pairs = read_test_set(os.path.join(SCRIPT_DIRECTORY, "../data/spell_test.txt"))
+    pairs = read_test_set("./data/spell_test.txt")
     corrector = sys.argv[1]
     run_spell_checker(pairs, corrector)

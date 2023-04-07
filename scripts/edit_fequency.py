@@ -56,7 +56,8 @@ for e in edits:
     else:
         edit_frequency[e] += 1
 
+total_edits = len(edits)
 # Write all edits' frequency in save_file
 with open(edits_frequency_file, "w") as f:
     for e in edit_frequency.keys():
-        f.write(f"{e[0]} {e[1]} {edit_frequency[e]}\n")
+        f.write(f"{e[0]} {e[1]} {edit_frequency[e]/total_edits}\n")
