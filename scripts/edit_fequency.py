@@ -4,8 +4,12 @@ import os
 import argparse
 from util import EPS
 
-# Script to make edits file from a given txt and calculate also the frequence of each
+"""
+Script to make edits file from a given txt and calculate also the frequence of each
+Usage:
+  python3 scripts/edit_fequency.py 
 
+"""
 # Parse input arguments
 parser = argparse.ArgumentParser(description='Word edits calculation')
 parser.add_argument('-df', type=str, default = "./data/wiki.txt", help='common mistakes data .txt filename')

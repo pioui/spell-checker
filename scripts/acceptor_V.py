@@ -3,6 +3,14 @@ import os
 import argparse
 from util import EPS
 
+"""
+Calculate acceptor V
+Acceptor, we create an .fst which corrects the word and an .fst that understands if this word exists or not.
+Usage:
+  python3 scripts/acceptor_V.py -af V.txt -cf chars.syms -wf words.syms
+
+"""
+
 # Parse input arguments
 parser = argparse.ArgumentParser(description='Acceptor fst')
 parser.add_argument('-af', type=str, default = "V.txt", help='Acceptor .txt filename')

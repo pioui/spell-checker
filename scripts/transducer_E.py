@@ -3,6 +3,15 @@ import os
 import argparse 
 from util import EPS, INFINITY
 from numpy import log 
+
+"""
+Calculate acceptor V
+Acceptor, we create an .fst weighted transducer that implements the Levenshtein distance:
+Usage:
+  python3 scripts/transducer_E.py -tf E.fst  -ef edits_frequency.txt -cf chars.syms 
+
+"""
+
 # Parse input arguments
 parser = argparse.ArgumentParser(description='Transducer fst')
 

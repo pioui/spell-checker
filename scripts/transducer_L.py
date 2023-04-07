@@ -3,6 +3,14 @@ import os
 import argparse 
 from util import EPS
 
+"""
+Calculate acceptor V
+Acceptor, we create an .fst transducer that implements the Levenshtein distance:
+Usage:
+  python3 scripts/transducer_L.py -tf L.fst  chars.syms 
+
+"""
+
 # Parse input arguments
 parser = argparse.ArgumentParser(description='Transducer fst')
 parser.add_argument('-dw', type=str, default = 1, help='Deletion weight')

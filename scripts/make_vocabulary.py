@@ -2,6 +2,14 @@ from collections import defaultdict
 import matplotlib.pyplot as plt
 import os
 
+
+"""
+Script to create and save the vocabulary
+Usage:
+  python3 scripts/make_vocabulary.py 
+
+"""
+
 # Define input and output file paths
 words_vocab_file = 'vocab/words.vocab.txt'
 

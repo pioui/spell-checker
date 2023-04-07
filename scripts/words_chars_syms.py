@@ -1,6 +1,12 @@
 from util import EPS
 import os
 
+"""
+Script to make symbols for words and characters.
+Usage:
+  python3 scripts/words_chars_syms.py 
+
+"""
 
 # Define input and output file paths
 vocab_file = "./vocab/words.vocab.txt"

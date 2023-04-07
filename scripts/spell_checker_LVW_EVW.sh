@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Run pipeline for edit distance spell checker
+# Run pipeline for LV, LVW, EV, EVW spell checker
 
 # Usage:
 # bash scripts/spell_checkers_EV.py 

@@ -3,6 +3,14 @@ from numpy import log
 import argparse
 from util import EPS
 
+"""
+Calculate acceptor V
+Acceptor, we create an .fst which corrects the word and an .fst that understands how often a word exists.
+Usage:
+  python3 scripts/acceptor_W.py -af W.fst -wvf words.vocab.txt -cf chars.syms -wf words.syms
+
+"""
+
 # Parse input arguments
 parser = argparse.ArgumentParser(description='Acceptor fst')
 parser.add_argument('-af', type=str, default = "W.fst", help='Acceptor .fst filename')
