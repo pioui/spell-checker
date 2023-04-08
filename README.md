@@ -54,10 +54,10 @@ bash scripts/spell_ckeckers_pipeline.sh
 ```
 This scrips creates 4 spell-checkers: LV, EV, LVW, EVW. Which are different combinations of .fst automata L, E, V, E. Each of the automatum has a different functionality:
 
-L: it is an edit distance Lavenstein transducer.
-E: it is an weighted edit distance Lavenstein transducer. The weight of each edit is calculated by it's frequency.
-V: it is an simple vocabulary word acceptor.
-W: it is a more sophisticated vocabulary word acceptor which takes into considaration the frequency of each word in the corpus.
+- L: it is an edit distance Lavenstein transducer.
+- E: it is an weighted edit distance Lavenstein transducer. The weight of each edit is calculated by it's frequency.
+- V: it is an simple vocabulary word acceptor.
+- W: it is a more sophisticated vocabulary word acceptor which takes into considaration the frequency of each word in the corpus.
 
 ## Spell checker evaluation
 
