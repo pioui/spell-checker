@@ -33,8 +33,8 @@ pip install -r requirements.txt
 ## If the setup is already done
 
 ```bash
-cd repos/spell-checker
 conda activate spell-checker
+cd ../spell_checker
 ```
 
 ## Data 
@@ -50,14 +50,20 @@ This script downloads and preprocesses the corpus, creates the vocabulary, the .
 ## Create Spell Checkers
 
 ```bash
-bash scripts/spell_ckeckers_pipeline.sh
+bash scripts/spell_checkers_pipeline.sh
 ```
-This scrips creates 4 spell-checkers: LV, EV, LVW, EVW. Which are different combinations of .fst automata L, E, V, E. Each of the automatum has a different functionality:
+This scrips creates 4 spell-checkers: LV, LuV, EV, LVW, LuVW, EVW. Which are different combinations of .fst automata L, E, V, E. Each of the automatum has a different functionality:
 
-L: it is an edit distance Lavenstein transducer.
-E: it is an weighted edit distance Lavenstein transducer. The weight of each edit is calculated by it's frequency.
-V: it is an simple vocabulary word acceptor.
-W: it is a more sophisticated vocabulary word acceptor which takes into considaration the frequency of each word in the corpus.
+- L: it is a vanilla edit distance Lavenstein transducer.
+
+- Lu: it is an edit distance Lavenstein transducer with deletion weight = 5, insertion= sunstitution wight = 2.
+
+- E: it is an weighted edit distance Lavenstein transducer. The weight of each edit is calculated by it's frequency.
+
+- V: it is an simple vocabulary word acceptor.
+
+- W: it is a more sophisticated vocabulary word acceptor which takes into considaration the frequency of each word in the corpus.
+
 
 ## Spell checker evaluation
 
@@ -67,7 +73,7 @@ following script for evaluation on the provided test set.
 Run:
 
 ```bash
-python scripts/run_evaluation.py fsts/MY_SPELL_CHECKER.binfst
+python scripts/run_evaluation.py fsts/MY_SPELL_CHECKER.fst
 ```
 
 The script will run the spell checker on the test set and print the model accuracy (percentage
@@ -78,7 +84,9 @@ of misspelled words that are corrected appropriately).
 | Spell-checker  | Accuracy  |
 |--------------- |-----------|
 |LV  |0.5962962962962963     | 
+|LuV |0.5592592592592592     | 
 |EV  |0.6925925925925925     |
 |LVW |0.02962962962962963    |
+|LuVW|0.4962962962962963     |
 |EVW |0.6370370370370371     |
 

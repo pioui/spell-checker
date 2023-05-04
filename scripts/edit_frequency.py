@@ -46,6 +46,7 @@ if os.path.exists(edits_frequency_file):
 
 # Read the data_file file and create a symbol table.
 edits = []
+print("Patience, this might take a while :) ...")
 with open(data_file, "r") as f:
     for line in f:
         wrong, correct = line.strip().split()
