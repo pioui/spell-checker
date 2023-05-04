@@ -34,7 +34,7 @@ pip install -r requirements.txt
 
 ```bash
 conda activate spell-checker
-cd ../spell_checker
+cd /spell_checker
 ```
 
 ## Data 
