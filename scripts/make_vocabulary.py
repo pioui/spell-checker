@@ -10,6 +10,11 @@ Usage:
 
 """
 
+# Manage files and directories
+vocab_folder = "./vocab/"
+if not os.path.exists(vocab_folder):
+    os.makedirs(vocab_folder)
+
 # Define input and output file paths
 words_vocab_file = "vocab/words.vocab.txt"
 
